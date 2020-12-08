@@ -10,28 +10,29 @@ const routes = express.Router();
 // const PatrimonioController = require('./controllers/PatrimonioController');
 // const MovimentacaoController = require('./controllers/MovimentacaoController');
 
-// routes.post('/patrimonios', PatrimonioController.create);
-// routes.get('/patrimonios', PatrimonioController.index);
-// routes.delete('/patrimonios/:id', PatrimonioController.delete);
-// routes.put('/patrimonios/:id', PatrimonioController.update);
-
-// routes.get('/movimentacoes', MovimentacaoController.index);
-// routes.post('/movimentacoes', MovimentacaoController.create);
-
 /* 
   CONEXÃO VIA MONGODB
 */
 
 const PatrimonioController = require('./controllers/patrimonios.controller');
+const MovimentacaoController = require('./controllers/movimentacoes.controller');
 
 const connection = require('./connectionMongo');
 connection.once('open', ()=>{
   console.log("Conexão com a base de dados MongoDB estabelecida com sucesso!");
 });
 
-routes.get('/patrimonios', PatrimonioController.index);
+/* ROUTES */
+
 routes.post('/patrimonios', PatrimonioController.create);
+routes.get('/patrimonios', PatrimonioController.index);
 routes.delete('/patrimonios/:id', PatrimonioController.delete);
+routes.put('/patrimonios/:id', PatrimonioController.update);
+
+routes.get('/movimentacoes', MovimentacaoController.index);
+routes.post('/movimentacoes', MovimentacaoController.create);
+
+
 
 routes.get('/', (req, res)=>{
   return res.json({

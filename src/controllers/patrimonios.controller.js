@@ -5,7 +5,7 @@ module.exports = {
   index(req,res){
     let pat = Patrimonios.find()
     .then(patrimonios => res.json(patrimonios))
-    .catch(err => res.status(400).json(`Error: ${err}`))
+    .catch(err => res.status(400).json(`Error: ${err}`));
     return pat;
   },
 
@@ -40,6 +40,19 @@ module.exports = {
     Patrimonios.remove({numero: id})
     .then(()=> res.json('Patrimonio removido!'))
     .catch(err=> res.status(400).json(`Error ${err}`))
+  },
+
+  update(req,res){
+    let {id} = req.params;
+    let {origem, setor, responsavel} = req.body
+    Patrimonios.updateOne({numero: id},
+      {
+        origem,
+        setor,
+        responsavel
+      }  
+    ).then(()=>res.json('Patrimonio atualizado!'))
+    .catch(err => res.status(400).json(`Error ${err}`))
   }
 
 }
