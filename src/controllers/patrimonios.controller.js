@@ -32,7 +32,7 @@ module.exports = {
 
     newPatrimonio.save()
       .then(()=> res.json('Patrimonio Adicionado!'))
-      .catch(err => res.status(400).json(`Error: ${err}`))
+      .catch(err => res.status(400).json(err))
   },
 
   delete(req,res){
