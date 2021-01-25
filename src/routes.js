@@ -16,6 +16,9 @@ const routes = express.Router();
 
 const PatrimonioController = require('./controllers/patrimonios.controller');
 const MovimentacaoController = require('./controllers/movimentacoes.controller');
+const UsuariosController = require('./controllers/usuarios.controller');
+const Usuarios = require('./models/usuarios.model');
+const auth = require('./middleware/auth'); 
 
 const connection = require('./connectionMongo');
 connection.once('open', ()=>{
@@ -28,10 +31,16 @@ routes.post('/patrimonios', PatrimonioController.create);
 routes.get('/patrimonios', PatrimonioController.index);
 routes.delete('/patrimonios/:id', PatrimonioController.delete);
 routes.put('/patrimonios/:id', PatrimonioController.update);
+routes.put('/patrimonios/editar/:id', PatrimonioController.updateFull);
 
 routes.get('/movimentacoes', MovimentacaoController.index);
 routes.post('/movimentacoes', MovimentacaoController.create);
 
+routes.get('/usuarios', auth, UsuariosController.getUsuario);
+routes.post('/usuarios/registrar', UsuariosController.registrar);
+routes.delete('/usuarios/deletar', auth, UsuariosController.deletar);
+routes.post('/tokenIsValid', UsuariosController.tokenIsValid);
+routes.post('/login', UsuariosController.logar);
 
 
 routes.get('/', (req, res)=>{

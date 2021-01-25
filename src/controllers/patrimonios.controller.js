@@ -53,6 +53,20 @@ module.exports = {
       }  
     ).then(()=>res.json('Patrimonio atualizado!'))
     .catch(err => res.status(400).json(`Error ${err}`))
+  },
+  updateFull(req,res){
+    let {id} = req.params;
+    let {descricao, marca, origem, setor, responsavel} = req.body
+    Patrimonios.updateOne({numero: id},
+      {
+        descricao,
+        marca,
+        origem,
+        setor,
+        responsavel
+      }  
+    ).then(()=>res.json('Patrimonio atualizado!'))
+    .catch(err => res.status(400).json(`Error ${err}`))
   }
 
 }
